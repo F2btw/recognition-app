@@ -1,0 +1,20 @@
+from PIL import Image
+import pytesseract
+from GetFilePath import *
+
+def main_recogn():
+ # Укажите путь к исполняемому файлу tesseract, если он не добавлен в PATH
+ pytesseract.pytesseract.tesseract_cmd = r'C:/ProgramData/Tesseract-OCR/tesseract.exe'
+
+ # Укажите путь к вашему изображению
+
+ image = Image.open(file_path)
+ cfg = r'--oem 3 --psm 3 '
+
+ # Примените OCR для распознавания текста
+ text = pytesseract.image_to_string(image,config=cfg ,lang='rus' )  # Используйте 'eng' для английского текста
+
+ # Выведите распознанный текст
+
+ 
+ 
