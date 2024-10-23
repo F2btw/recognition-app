@@ -4,7 +4,7 @@ from GetFilePath import *
 
 def main_recogn():
  # Укажите путь к исполняемому файлу tesseract, если он не добавлен в PATH
- pytesseract.pytesseract.tesseract_cmd = r'C:/ProgramData/Tesseract-OCR/tesseract.exe'
+ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 
  # Укажите путь к вашему изображению
 
@@ -13,8 +13,8 @@ def main_recogn():
 
  # Примените OCR для распознавания текста
  text = pytesseract.image_to_string(image,config=cfg ,lang='rus' )  # Используйте 'eng' для английского текста
-
+ 
  # Выведите распознанный текст
-
+ print(text)
  
  
