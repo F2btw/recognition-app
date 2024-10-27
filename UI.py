@@ -4,8 +4,9 @@ from flet import *
 import webbrowser
 import pyperclip
 import base64
-from PIL import Image
+from PIL import Image, ImageFilter
 import pytesseract
+import multiprocessing as mp
 
 #градиент
 bg_gradient = LinearGradient(
@@ -106,12 +107,21 @@ def main(page: ft.Page):
              page.update()
      #распознование текста       
      global text
+     
      # Укажите путь к исполняемому файлу tesseract, если он не добавлен в PATH
      pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
      imageR = Image.open(file_path)
-     cfg = r'--oem 3 --psm 3 '
+     imageR = imageR.convert('L')  # Grayscale
+     imageR = imageR.filter(ImageFilter.SHARPEN)  # Sharpen image
+     imageR = imageR.point(lambda x: 0 if x < 128 else 255, '1')
+     cfg = r'--oem 1 --psm 3 '
      text = pytesseract.image_to_string(imageR,lang='rus',config=cfg  )
      print(text)
+     if __name__ == '__main__':
+      with mp.Pool(mp.cpu_count()) as pool:
+        results = pool.map(file_path)
+      for i, text in enumerate(results):
+        print(f"Text from image {i+1}:\n{text}\n")   
     File_Picker = FilePicker(on_result=get_file_path)
     page.overlay.append(File_Picker)
     
