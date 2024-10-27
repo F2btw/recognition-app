@@ -1,1 +1,3 @@
-
+import pyperclip
+def copy_text(e):
+       pyperclip.copy(text) # text это переменная которая содержит распознанный текст с помощью main файла
