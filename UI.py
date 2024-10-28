@@ -113,8 +113,10 @@ def main(page: ft.Page):
      imageR = Image.open(file_path)
      imageR = imageR.convert('L')  # Grayscale
      imageR = imageR.filter(ImageFilter.SHARPEN)  # Sharpen image
+     #imageR = imageR.filter(ImageFilter.GaussianBlur(radius=0.5))
      imageR = imageR.point(lambda x: 0 if x < 128 else 255, '1')
-     cfg = r'--oem 1 --psm 3 '
+     
+     cfg = r'--oem 3 --psm 6 '
      text = pytesseract.image_to_string(imageR,lang='rus',config=cfg  )
      print(text)
      if __name__ == '__main__':
